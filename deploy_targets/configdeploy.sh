@@ -33,7 +33,7 @@ fi
 #deploy to git
 git add -u
 git commit -m "bumped version"
-git push
+# git push
 
 #refresh cache?
 
