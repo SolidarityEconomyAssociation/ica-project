@@ -15,8 +15,8 @@ SELECT ?activity ?name ?uri ?lat ?lng ?street ?locality ?postcode ?country ?with
 WHERE {
         ?uri rdf:type essglobal:SSEInitiative .
         ?uri gr:name ?name .
-    OPTIONAL { ?uri essglobal:organisationalStructure ?regorg . }
-    OPTIONAL { ?uri essglobal:qualifier ?qualifier .}
+    	OPTIONAL { ?uri essglobal:organisationalStructure ?regorg . }
+    	OPTIONAL { ?uri essglobal:qualifier ?qualifier .}
         OPTIONAL { ?uri dc:description ?desc . }
         OPTIONAL { ?uri essglobal:primarySector ?primaryActivity . }
         OPTIONAL { ?uri essglobal:economicSector ?activity . }
@@ -31,5 +31,4 @@ WHERE {
         OPTIONAL { ?within geo:long ?lng .}
         OPTIONAL { ?addr geo:lat ?manLat . } 
         OPTIONAL { ?addr geo:long ?manLng .}
-
 }

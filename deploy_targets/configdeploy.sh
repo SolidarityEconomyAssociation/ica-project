@@ -26,14 +26,14 @@ else
         ./deploy_targets/dev
 fi
 
-temp=`cat config/version.json`
-echo "${temp::-1}, \"version\":\"${ver}\"}" > config/version.json
-echo "${temp::-1}, \"version\":\"${ver}\"}" > build/out/configuration/version.json
+#temp=`cat config/version.json`
+#echo "${temp::-1}, \"version\":\"${ver}\"}" > config/version.json
+#echo "${temp::-1}, \"version\":\"${ver}\"}" > build/out/configuration/version.json
 
 #deploy to git
 git add -u
 git commit -m "bumped version"
-#git push
+# git push
 
 #refresh cache?
 

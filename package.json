@@ -10,14 +10,18 @@
   },
   "scripts": {
     "build": "sea-site-build -c config -m node_modules/sea-map -d build src/*",
-    "deploy": "set -x; rsync -avzc --rsync-path='sudo rsync' --delete --usermap=\"*:$npm_package_config_deploy_user\" --groupmap=\"*:$npm_package_config_deploy_group\" --exclude=build.txt --exclude=.* build/out/ \"${npm_package_config_deploy_to:?Please define the '$npm_package_name:deploy_to' npm config parameter}\"",
+    "deploy": "set -x; rsync -avzc --delete --rsync-path='sudo rsync' --usermap=\"*:$npm_package_config_deploy_user\" --groupmap=\"*:$npm_package_config_deploy_group\" --exclude=build.txt --exclude=.* build/out/ \"${npm_package_config_deploy_to:?Please define the '$npm_package_name:deploy_to' npm config parameter}\"",
     "dev": "php -t build/out -S localhost:8080"
   },
   "author": "Solidarity Economy Association",
   "license": "UNLICENSED",
   "repository": "github:SolidarityEconomyAssociation/ica-project",
   "dependencies": {
+<<<<<<< HEAD
     "sea-map": "github:SolidarityEconomyAssociation/sea-map#semver:^0.1.49"
+=======
+    "sea-map": "github:SolidarityEconomyAssociation/sea-map#semver:^0.1.50"
+>>>>>>> dev
   },
   "devDependencies": {}
 }
