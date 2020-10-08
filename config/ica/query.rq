@@ -11,24 +11,26 @@ PREFIX rov: <http://www.w3.org/ns/regorg#>
 PREFIX osspatialrelations: <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/>
 PREFIX : <https://dev.lod.coop/ica>
 
-SELECT ?activity ?name ?uri ?lat ?lng ?street ?locality ?postcode ?country ?within ?regorg ?www ?primaryActivity ?qualifier ?desc ?manLng ?manLat
+SELECT ?activity ?name ?uri ?lat ?lng ?street ?locality ?postcode ?country ?within ?regorg ?www ?primaryActivity ?qualifier ?desc ?manLng ?manLat ?baseMembershipType
 WHERE {
-        ?uri rdf:type essglobal:SSEInitiative .
-        ?uri gr:name ?name .
-    	OPTIONAL { ?uri essglobal:organisationalStructure ?regorg . }
-    	OPTIONAL { ?uri essglobal:qualifier ?qualifier .}
-        OPTIONAL { ?uri dc:description ?desc . }
-        OPTIONAL { ?uri essglobal:primarySector ?primaryActivity . }
-        OPTIONAL { ?uri essglobal:economicSector ?activity . }
-        OPTIONAL { ?uri foaf:homepage ?www . }
-        OPTIONAL { ?uri essglobal:hasAddress ?addr . }
-        OPTIONAL { ?addr vcard:street-address ?street . }
-        OPTIONAL { ?addr vcard:postal-code ?postcode . }
-        OPTIONAL { ?addr vcard:locality ?locality . }
-        OPTIONAL { ?addr vcard:country-name ?country . }
-        OPTIONAL { ?addr osspatialrelations:within ?within . }
-        OPTIONAL { ?within geo:lat ?lat . } 
-        OPTIONAL { ?within geo:long ?lng .}
-        OPTIONAL { ?addr geo:lat ?manLat . } 
-        OPTIONAL { ?addr geo:long ?manLng .}
+	?uri rdf:type essglobal:SSEInitiative .
+	?uri gr:name ?name .
+    OPTIONAL { ?uri essglobal:organisationalStructure ?regorg . }
+    OPTIONAL { ?uri essglobal:qualifier ?qualifier .}
+	OPTIONAL { ?uri dc:description ?desc . }
+	OPTIONAL { ?uri essglobal:primarySector ?primaryActivity . }
+	OPTIONAL { ?uri essglobal:economicSector ?activity . }
+	OPTIONAL { ?uri foaf:homepage ?www . }
+	OPTIONAL { ?uri essglobal:hasAddress ?addr . }
+	OPTIONAL { ?uri essglobal:baseMembershipType ?baseMembershipType . }
+	OPTIONAL { ?addr vcard:street-address ?street . }
+	OPTIONAL { ?addr vcard:postal-code ?postcode . }
+	OPTIONAL { ?addr vcard:locality ?locality . }
+	OPTIONAL { ?addr vcard:country-name ?country . }
+	OPTIONAL { ?addr osspatialrelations:within ?within . }
+    OPTIONAL { ?within geo:lat ?lat . } 
+	OPTIONAL { ?within geo:long ?lng .}
+	OPTIONAL { ?addr geo:lat ?manLat . } 
+	OPTIONAL { ?addr geo:long ?manLng .}
+
 }

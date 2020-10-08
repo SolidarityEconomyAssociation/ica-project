@@ -14,6 +14,12 @@ define([], function () {
     var getPopup = function (initiative, sse_initiatives) {
         let orgStructures = sse_initiatives.getVerboseValuesForFields()["Organisational Structure"];
         let activitiesVerbose = sse_initiatives.getVerboseValuesForFields()["Activities"];
+        let membershipsVerbose = sse_initiatives.getVerboseValuesForFields()["Base Membership Type"]
+        membershipsVerbose["BMT10"] = "Consumer/User coops"
+        membershipsVerbose["BMT20"] = "Producer coops"
+        membershipsVerbose["BMT30"] = "Worker coops"
+        membershipsVerbose["BMT40"] = "Multi-stakeholder coops"
+        membershipsVerbose["BMT50"] = "Resident coops"
         let address = "",
             street,
             locality,
@@ -23,8 +29,9 @@ define([], function () {
             popupHTML =
                 '<div class="sea-initiative-details">' +
                 '<h2 class="sea-initiative-name">{initiative.name}</h2>' +
-                '<h4 class="sea-initiative-org-structure">{initiative.org-structure}</h4>' +
-                '<h4 class="sea-initiative-economic-activity">Activity: {initiative.economic-activity}</h4>' +
+                '<h4 class="sea-initiative-org-structure">Structure Type: {initiative.org-structure}</h4>' +
+                '<h4 class="sea-initiative-org-typology">Typology: {initiative.org-baseMembershipType}</h4>' +
+                '<h4 class="sea-initiative-economic-activity">Economic Activity: {initiative.economic-activity}</h4>' +
                 '<h5 class="sea-initiative-secondary-activity">Secondary Activities: {initiative.secondary-activity}</h5>' +
                 "<p>{initiative.desc}</p>" +
                 "</div>" +
@@ -57,7 +64,7 @@ define([], function () {
                 );
             } else {
                 popupHTML = popupHTML.replace(
-                    "{initiative.org-structure}",
+                    "Structure Type: {initiative.org-structure}",
                     initiative.qualifier ? activitiesVerbose[initiative.qualifier] : ""
                 );
             }
@@ -72,7 +79,7 @@ define([], function () {
             );
         } else {
             popupHTML = popupHTML.replace(
-                "Activity: {initiative.economic-activity}",
+                "Economic Activity: {initiative.economic-activity}",
                 ""
             );
 
@@ -98,6 +105,19 @@ define([], function () {
                 );
             }
 
+        }
+
+        // memberships 
+        if (initiative.baseMembershipType) {
+            popupHTML = popupHTML.replace(
+                "Typology: {initiative.org-baseMembershipType}",
+                "Typology: " + membershipsVerbose[initiative.baseMembershipType]
+            )
+        }
+        else {
+            popupHTML = popupHTML.replace(
+                "Typology: {initiative.org-baseMembershipType}", "Others"
+            )
         }
 
 
