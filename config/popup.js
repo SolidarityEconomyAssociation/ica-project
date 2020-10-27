@@ -65,7 +65,7 @@ define([], function () {
             } else {
                 popupHTML = popupHTML.replace(
                     "Structure Type: {initiative.org-structure}",
-                    initiative.qualifier ? activitiesVerbose[initiative.qualifier] : ""
+                    initiative.qualifier ? "Structure Type: " + activitiesVerbose[initiative.qualifier] : ""
                 );
             }
 
