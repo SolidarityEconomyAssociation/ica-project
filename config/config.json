@@ -6,5 +6,6 @@
   "tileUrl" : "https:/\/tile.thunderforest.com/outdoors/{z}/{x}/{y}.png?apikey=3d5b23b8fe9c4a2a94a3df16f02f125a",
   "mapAttribution" :  "Maps &copy; <a href='http:/\/www.thunderforest.com'>Thunderforest</a> & &copy; <a href='http:/\/www.openstreetmap.org/copyright'>OpenStreetMap contributors</a> | Other data <a href='http:/\/creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a> | Powered by <a href='https:/\/www.geoapify.com/'>Geoapify</a>",
   "htmlTitle" : "ICA Map",
+  "logo": "configuration/logo.png",
   "defaultLatLng": ["50.84999", "4.39434" ]
 }
