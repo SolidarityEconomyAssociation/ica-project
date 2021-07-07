@@ -1,11 +1,48 @@
 {
+  "languages": ["EN","FR","ES"],
+  "language": "EN",
+
+  "vocabularies": [
+    { "endpoint": "http:\/\/data.solidarityeconomy.coop:8890/sparql",
+      "uris": {
+        "https:\/\/lod.coop/essglobal/2.1/standard/activities-ica/": "aci",
+        "https:\/\/lod.coop/essglobal/2.1/standard/countries-iso/": "coun",
+        "https:\/\/lod.coop/essglobal/2.1/standard/regions-ica/": "reg",
+        "https:\/\/lod.coop/essglobal/2.1/standard/super-regions-ica/": "sreg",
+        "https:\/\/lod.coop/essglobal/2.1/standard/organisational-structure/": "os",
+        "https:\/\/lod.coop/essglobal/2.1/standard/base-membership-type/": "bmt"
+      }
+    }
+  ],
+  
   "namedDatasets" : ["ica"],
   "namedDatasetsVerbose" : ["ICA"],
-  "filterableFields" : [{ "field": "country", "label": "Countries" }],
-  "showDatasetsPanel" : true,
+  "filterableFields" : [
+    "countryId",
+    "superRegionId",
+    "regionId",
+    "baseMembershipType",
+    "regorg",
+    "primaryActivity"
+  ],
+  "showDirectoryPanel": true,
+  "showSearchPanel": true,
+  "showAboutPanel": true,
+  "showDatasetsPanel" : false,
   "tileUrl" : "https:/\/tile.thunderforest.com/outdoors/{z}/{x}/{y}.png?apikey=3d5b23b8fe9c4a2a94a3df16f02f125a",
-  "mapAttribution" :  "Maps &copy; <a href='http:/\/www.thunderforest.com'>Thunderforest</a> & &copy; <a href='http:/\/www.openstreetmap.org/copyright'>OpenStreetMap contributors</a> | Other data <a href='http:/\/creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a> | Powered by <a href='https:/\/www.geoapify.com/'>Geoapify</a>",
-  "htmlTitle" : "ICA Map",
+  "mapAttribution" :  "Maps &copy; <a href='http:/\/www.thunderforest.com'>Thunderforest</a> & &copy; <a href='http:/\/www.openstreetmap.org/copyright'>OpenStreetMap contributors</a> | Other data <a href='http:/\/creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a> | Powered by <a href='https:/\/www.geoapify.com/'>Geoapify</a> | This map contains indications of areas where there are disputes over territories. The ICA does not endorse or accept the boundaries depicted on the map.",
+  "htmlTitle" : "ICA",
   "logo": "configuration/logo.png",
-  "defaultLatLng": ["50.84999", "4.39434" ]
+  "defaultLatLng": ["50.84999", "4.39434" ],
+  "initialBounds": [[62,-107],[-37,174]],
+  "maxZoomOnOne": 10,
+
+  "dialogueSize": {
+    "width": "35vw",
+    "height": "225px",
+    "descriptionRatio": "2.5"
+  },
+  "defaultOpenSidebar": true,
+  "sidebarButtonColour": "#8E0B56"
+
 }

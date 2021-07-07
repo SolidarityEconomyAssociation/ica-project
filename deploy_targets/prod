@@ -1,1 +1,0 @@
-npm config set ica-project:deploy_to prod-0:/var/www/vhosts/ica.solidarityeconomy.coop/www/

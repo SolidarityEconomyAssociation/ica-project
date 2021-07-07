@@ -1,5 +1,5 @@
-define([], function () {
-    "use strict";
+define(["model/sse_initiative"], function (sse_initiatives) {
+  "use strict";
 
     var getLatLng = function (initiative) {
         return [initiative.lat, initiative.lng];
@@ -12,14 +12,11 @@ define([], function () {
     };
 
     var getPopup = function (initiative, sse_initiatives) {
-        let orgStructures = sse_initiatives.getVerboseValuesForFields()["Organisational Structure"];
-        let activitiesVerbose = sse_initiatives.getVerboseValuesForFields()["Activities"];
-        let membershipsVerbose = sse_initiatives.getVerboseValuesForFields()["Base Membership Type"]
-        membershipsVerbose["BMT10"] = "Consumer/User coops"
-        membershipsVerbose["BMT20"] = "Producer coops"
-        membershipsVerbose["BMT30"] = "Worker coops"
-        membershipsVerbose["BMT40"] = "Multi-stakeholder coops"
-        membershipsVerbose["BMT50"] = "Resident coops"
+        const values = sse_initiatives.getLocalisedVocabs();
+        const labels = sse_initiatives.getFunctionalLabels();
+        let orgStructures = values["os:"].terms;
+        let activitiesVerbose = values["aci:"].terms;
+        let membershipsVerbose = values["bmt:"].terms;
         let address = "",
             street,
             locality,
@@ -29,16 +26,16 @@ define([], function () {
             popupHTML =
                 '<div class="sea-initiative-details">' +
                 '<h2 class="sea-initiative-name">{initiative.name}</h2>' +
-                '<h4 class="sea-initiative-org-structure">Structure Type: {initiative.org-structure}</h4>' +
-                '<h4 class="sea-initiative-org-typology">Typology: {initiative.org-baseMembershipType}</h4>' +
-                '<h4 class="sea-initiative-economic-activity">Economic Activity: {initiative.economic-activity}</h4>' +
+                "{dotcoop.domains}" +
+                `<h4 class="sea-initiative-org-structure">${values["os:"].title}: ${orgStructures[initiative.regorg]}</h4>` +
+                `<h4 class="sea-initiative-org-typology">${values["bmt:"].title}: ${membershipsVerbose[initiative.baseMembershipType]}</h4>` +
+                `<h4 class="sea-initiative-economic-activity">${values["aci:"].title}: ${activitiesVerbose[initiative.primaryActivity]}</h4>` +
                 '<h5 class="sea-initiative-secondary-activity">Secondary Activities: {initiative.secondary-activity}</h5>' +
                 "<p>{initiative.desc}</p>" +
                 "</div>" +
                 '<div class="sea-initiative-contact">' +
-                "<h3>Contact</h3>" +
+                `<h3>${labels.contact}</h3>` +
                 "{initiative.address}" +
-                "{dotcoop.domains}" +
                 "{initiative.tel}" +
                 '<div class="sea-initiative-links">' +
                 "{initiative.email}" +
@@ -152,8 +149,10 @@ define([], function () {
         if (initiative.postcode) {
             address += (address.length ? "<br/>" : "") + initiative.postcode;
         }
-        if (initiative.country) {
-            address += (address.length ? "<br/>" : "") + initiative.country;
+        if (initiative.countryId) {
+            const vocabUri = sse_initiatives.getVocabUriForProperty('countryId');
+            const countryName = sse_initiatives.getVocabTerm(vocabUri, initiative.countryId);
+            address += (address.length ? "<br/>" : "") + (countryName || initiative.countryId);
         }
         if (initiative.nongeo == 1 || !initiative.lat || !initiative.lng) {
             address += (address.length ? "<br/>" : "") + "<i>NO LOCATION AVAILABLE</i>";
