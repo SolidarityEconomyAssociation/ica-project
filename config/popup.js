@@ -16,6 +16,10 @@ var getPopup = function (initiative, sse_initiatives) {
   let orgStructures = values["os:"].terms;
   let activitiesVerbose = values["aci:"].terms;
   let membershipsVerbose = values["bmt:"].terms;
+  let os_title = values["os:"].title;
+  let bmt_title = values["bmt:"].title;
+  let aci_title = values["aci:"].title;
+  let aci2_title = "Secondary Activities";
   let address = "",
       street,
       locality,
