@@ -19,5 +19,9 @@
   "dependencies": {
     "sea-map": "github:SolidarityEconomyAssociation/sea-map#semver:^1.1.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "instant-mocha": "^1.3.1",
+    "mocha": "^8.4.0",
+    "webpack-cli": "^4.7.0"
+  }
 }
