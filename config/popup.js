@@ -28,7 +28,7 @@ var getPopup = function (initiative, sse_initiatives) {
         initiative.dataset.includes("dotcoop"),
       popupHTML =
         '<div class="sea-initiative-details">' +
-        '<h2 class="sea-initiative-name">{initiative.name}</h2>' +
+        `<h2 class="sea-initiative-name">${initiative.name}</h2>` +
         "{dotcoop.domains}" +
         `<h4 class="sea-initiative-org-structure">${values["os:"].title}: ${orgStructures[initiative.regorg]}</h4>` +
         `<h4 class="sea-initiative-org-typology">${values["bmt:"].title}: ${membershipsVerbose[initiative.baseMembershipType]}</h4>` +
@@ -46,8 +46,6 @@ var getPopup = function (initiative, sse_initiatives) {
         "{initiative.twitter}" +
         "</div>" +
         "</div>";
-  // All initiatives should have a name
-  popupHTML = popupHTML.replace("{initiative.name}", initiative.name);
   // TODO Add org type
   if (!initiative.qualifier && initiative.orgStructure && initiative.orgStructure.length > 0) {
     let repl = initiative.orgStructure.map(OS => orgStructures[OS]).join(", ");
