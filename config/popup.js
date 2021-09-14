@@ -1,4 +1,3 @@
-define(["model/sse_initiative"], function (sse_initiatives) {
   "use strict";
 
     var getLatLng = function (initiative) {
@@ -201,8 +200,6 @@ define(["model/sse_initiative"], function (sse_initiatives) {
         return popupHTML;
     };
 
-    var pub = {
+    module.exports = {
         getPopup: getPopup
     };
-    return pub;
-});
