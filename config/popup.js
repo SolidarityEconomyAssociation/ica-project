@@ -20,6 +20,12 @@ var getPopup = function (initiative, sse_initiatives) {
   let bmt_title = values["bmt:"].title;
   let aci_title = values["aci:"].title;
   let aci2_title = "Secondary Activities";
+  
+  // Initiative's dotcoop domains. Note, not all have a website.
+  let dotcoop_domains = "";
+  if (initiative.www)
+      dotcoop_domains = `<a href="${initiative.www}" target="_blank" >${initiative.www}</a>`;
+  
   let address = "",
       street,
       locality,
@@ -29,7 +35,7 @@ var getPopup = function (initiative, sse_initiatives) {
       popupHTML =
         '<div class="sea-initiative-details">' +
         `<h2 class="sea-initiative-name">${initiative.name}</h2>` +
-        "{dotcoop.domains}" +
+        `${dotcoop_domains || ''}` +
         `<h4 class="sea-initiative-org-structure">${values["os:"].title}: ${orgStructures[initiative.regorg]}</h4>` +
         `<h4 class="sea-initiative-org-typology">${values["bmt:"].title}: ${membershipsVerbose[initiative.baseMembershipType]}</h4>` +
         `<h4 class="sea-initiative-economic-activity">${values["aci:"].title}: ${activitiesVerbose[initiative.primaryActivity]}</h4>` +
@@ -122,13 +128,6 @@ var getPopup = function (initiative, sse_initiatives) {
 
   // All initiatives should have a description (this isn't true with dotcoop)
   popupHTML = popupHTML.replace("{initiative.desc}", initiative.desc || "");
-
-  // Not all orgs have a website
-  popupHTML = popupHTML.replace(
-    "{dotcoop.domains}",
-    initiative.www ? '<a href="' + initiative.www + '" target="_blank" >' + initiative.www + '</a>'
-    : ""
-  );
 
   // We want to add the whole address into a single para
   // Not all orgs have an address
