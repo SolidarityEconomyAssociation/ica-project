@@ -81,7 +81,7 @@ function getPopup(initiative, sse_initiatives) {
     <div class="sea-initiative-contact">
       <h3>${labels.contact}</h3>
       ${getAddress(initiative, getTerm)}
-      {initiative.tel}
+      
       <div class="sea-initiative-links">
         {initiative.email}
         {initiative.facebook}
@@ -185,17 +185,6 @@ function getPopup(initiative, sse_initiatives) {
       '<a class="fab fa-facebook" href="https://facebook.com/' + initiative.facebook + '" target="_blank" ></a>'
     );
   } else popupHTML = popupHTML.replace("{initiative.facebook}", "");
-
-  // Not all orgs have a phone number
-  popupHTML = popupHTML.replace(
-    "{initiative.tel}",
-    // initiative.tel
-    //     ? '<p class="sea-initiative-tel">' +
-    //     prettyPhone(initiative.tel) +
-    //     "</p>"
-    //     :
-    ""
-  );
 
 
   return popupHTML;
