@@ -67,26 +67,29 @@ function getPopup(initiative, sse_initiatives) {
     dotcoop_domains = `<a href="${initiative.www}" target="_blank" >${initiative.www}</a>`;
   
   let dotcoop = initiative.dataset.includes("dotcoop");
-  let popupHTML =
-    '<div class="sea-initiative-details">' +
-    `<h2 class="sea-initiative-name">${initiative.name}</h2>` +
-    `${dotcoop_domains || ''}` +
-    `<h4 class="sea-initiative-org-structure">${values["os:"].title}: ${orgStructures[initiative.regorg]}</h4>` +
-    `<h4 class="sea-initiative-org-typology">${values["bmt:"].title}: ${membershipsVerbose[initiative.baseMembershipType]}</h4>` +
-    `<h4 class="sea-initiative-economic-activity">${values["aci:"].title}: ${activitiesVerbose[initiative.primaryActivity]}</h4>` +
-    '<h5 class="sea-initiative-secondary-activity">Secondary Activities: {initiative.secondary-activity}</h5>' +
-    `<p>${initiative.desc || ''}</p>` +
-    "</div>" +
-    '<div class="sea-initiative-contact">' +
-    `<h3>${labels.contact}</h3>` +
-    `${getAddress(initiative, getTerm)}` +
-    "{initiative.tel}" +
-    '<div class="sea-initiative-links">' +
-    "{initiative.email}" +
-    "{initiative.facebook}" +
-    "{initiative.twitter}" +
-    "</div>" +
-    "</div>";
+  let popupHTML = `
+    <div class="sea-initiative-details">
+      <h2 class="sea-initiative-name">${initiative.name}</h2>
+      ${dotcoop_domains || ''}
+      <h4 class="sea-initiative-org-structure">${values["os:"].title}: ${orgStructures[initiative.regorg]}</h4>
+      <h4 class="sea-initiative-org-typology">${values["bmt:"].title}: ${membershipsVerbose[initiative.baseMembershipType]}</h4>
+      <h4 class="sea-initiative-economic-activity">${values["aci:"].title}: ${activitiesVerbose[initiative.primaryActivity]}</h4>
+      <h5 class="sea-initiative-secondary-activity">Secondary Activities: {initiative.secondary-activity}</h5>
+      <p>${initiative.desc || ''}</p>
+    </div>
+    
+    <div class="sea-initiative-contact">
+      <h3>${labels.contact}</h3>
+      ${getAddress(initiative, getTerm)}
+      {initiative.tel}
+      <div class="sea-initiative-links">
+        {initiative.email}
+        {initiative.facebook}
+        {initiative.twitter}
+      </div>
+    </div>
+  `;
+
   // TODO Add org type
   if (!initiative.qualifier && initiative.orgStructure && initiative.orgStructure.length > 0) {
     let repl = initiative.orgStructure.map(OS => orgStructures[OS]).join(", ");
