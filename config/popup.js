@@ -74,6 +74,13 @@ function getFacebook(initiative) {
   return "";
 }  
 
+function getTwitter(initiative) {
+  // not all have twitter
+  if (initiative.twitter)
+    return `<a class="fab fa-twitter" href="https://twitter.com/${initiative.twitter}" target="_blank" ></a>`;
+  return '';
+}
+
 function getPopup(initiative, sse_initiatives) {
   function getTerm(propertyName) {
     const vocabUri = sse_initiatives.getVocabUriForProperty(propertyName);
@@ -113,7 +120,7 @@ function getPopup(initiative, sse_initiatives) {
       <div class="sea-initiative-links">
         ${getEmail(initiative)}
         ${getFacebook(initiative)}
-        {initiative.twitter}
+        ${getTwitter(initiative)}
       </div>
     </div>
   `;
@@ -167,16 +174,6 @@ function getPopup(initiative, sse_initiatives) {
       "Typology: {initiative.org-baseMembershipType}", "Others"
     )
   }
-
-  // not all have twitter
-  if (initiative.twitter) {
-    popupHTML = popupHTML.replace(
-      "{initiative.twitter}",
-      '<a class="fab fa-twitter" href="https://twitter.com/' + initiative.twitter + '" target="_blank" ></a>'
-    );
-  } else popupHTML = popupHTML.replace("{initiative.twitter}", "");
-
-
 
   return popupHTML;
 };
