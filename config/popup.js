@@ -60,6 +60,13 @@ function getSecondaryActivities(initiative, acVocab, osVocab) {
   return '';
 }
 
+function getEmail(initiative) {
+  // Not all orgs have an email
+  if (initiative.email)
+    return `<a class="fa fa-at" href="mailto:${initiative.email}" target="_blank" ></a>`;
+  return "";
+}
+
 function getPopup(initiative, sse_initiatives) {
   function getTerm(propertyName) {
     const vocabUri = sse_initiatives.getVocabUriForProperty(propertyName);
@@ -97,7 +104,7 @@ function getPopup(initiative, sse_initiatives) {
       ${getAddress(initiative, getTerm)}
       
       <div class="sea-initiative-links">
-        {initiative.email}
+        ${getEmail(initiative)}
         {initiative.facebook}
         {initiative.twitter}
       </div>
@@ -153,14 +160,6 @@ function getPopup(initiative, sse_initiatives) {
       "Typology: {initiative.org-baseMembershipType}", "Others"
     )
   }
-
-  // Not all orgs have an email
-  if (initiative.email) {
-    popupHTML = popupHTML.replace(
-      "{initiative.email}",
-      '<a class="fa fa-at" href="mailto:' + initiative.email + '" target="_blank" ></a>'
-    );
-  } else popupHTML = popupHTML.replace("{initiative.email}", "");
 
   // not all have twitter
   if (initiative.twitter) {
