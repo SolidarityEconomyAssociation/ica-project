@@ -106,7 +106,6 @@ function getPopup(initiative, sse_initiatives) {
   let bmt_title = values["bmt:"].title;
   let aci_title = values["aci:"].title;
   
-  let dotcoop = initiative.dataset.includes("dotcoop");
   let popupHTML = `
     <div class="sea-initiative-details">
       <h2 class="sea-initiative-name">${initiative.name}</h2>
