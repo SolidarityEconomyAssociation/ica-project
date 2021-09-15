@@ -45,6 +45,21 @@ function getAddress(initiative, getTerm) {
   return address;
 }
 
+function getSecondaryActivities(initiative, acVocab, osVocab) {
+  const title = "Secondary Activities"; // FIXME not yet translated!
+
+  if (initiative.activities && initiative.activities.length > 0) {
+    const term = initiative.activities.map(id => acVocab.terms[id]).join(", ");
+    return `${title}: ${term}`;
+  }
+  
+  if (initiative.activity) {
+    return `${title}: ${osVocab.terms[initiative.activity]}`;
+  }
+
+  return '';
+}
+
 function getPopup(initiative, sse_initiatives) {
   function getTerm(propertyName) {
     const vocabUri = sse_initiatives.getVocabUriForProperty(propertyName);
@@ -59,7 +74,6 @@ function getPopup(initiative, sse_initiatives) {
   let os_title = values["os:"].title;
   let bmt_title = values["bmt:"].title;
   let aci_title = values["aci:"].title;
-  let aci2_title = "Secondary Activities";
   
   // Initiative's dotcoop domains. Note, not all have a website.
   let dotcoop_domains = "";
@@ -74,7 +88,7 @@ function getPopup(initiative, sse_initiatives) {
       <h4 class="sea-initiative-org-structure">${values["os:"].title}: ${orgStructures[initiative.regorg]}</h4>
       <h4 class="sea-initiative-org-typology">${values["bmt:"].title}: ${membershipsVerbose[initiative.baseMembershipType]}</h4>
       <h4 class="sea-initiative-economic-activity">${values["aci:"].title}: ${activitiesVerbose[initiative.primaryActivity]}</h4>
-      <h5 class="sea-initiative-secondary-activity">Secondary Activities: {initiative.secondary-activity}</h5>
+      <h5 class="sea-initiative-secondary-activity">${getSecondaryActivities(initiative, values["aci:"], values["os:"])}</h5>
       <p>${initiative.desc || ''}</p>
     </div>
     
@@ -124,28 +138,6 @@ function getPopup(initiative, sse_initiatives) {
       "Economic Activity: {initiative.economic-activity}",
       ""
     );
-
-  }
-  if (initiative.activities && initiative.activities.length > 0) {
-    let repl = initiative.activities.map(AM => activitiesVerbose[AM]).join(", ");
-    popupHTML = popupHTML.replace(
-      "{initiative.secondary-activity}",
-      repl
-    );
-  }
-  //comment this out
-  else {
-    if (initiative.activity) {
-      popupHTML = popupHTML.replace(
-        "{initiative.secondary-activity}",
-        orgStructures[initiative.activity]
-      );
-    } else {
-      popupHTML = popupHTML.replace(
-        "Secondary Activities: {initiative.secondary-activity}",
-        ""
-      );
-    }
 
   }
 
