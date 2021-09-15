@@ -1,12 +1,12 @@
 "use strict";
 
-var getLatLng = function (initiative) {
+function getLatLng(initiative) {
   return [initiative.lat, initiative.lng];
 };
-var getHoverText = function (initiative) {
+function getHoverText(initiative) {
   return initiative.name;
 };
-var prettyPhone = function (tel) {
+function prettyPhone(tel) {
   return tel.replace(/^(\d)(\d{4})\s*(\d{6})/, "$1$2 $3");
 };
 function getAddress(initiative, getTerm) {
@@ -45,7 +45,7 @@ function getAddress(initiative, getTerm) {
   return address;
 }
 
-var getPopup = function (initiative, sse_initiatives) {
+function getPopup(initiative, sse_initiatives) {
   function getTerm(propertyName) {
     const vocabUri = sse_initiatives.getVocabUriForProperty(propertyName);
     return sse_initiatives.getVocabTerm(vocabUri, initiative[propertyName]);
@@ -199,5 +199,5 @@ var getPopup = function (initiative, sse_initiatives) {
 };
 
 module.exports = {
-  getPopup: getPopup
+  getPopup
 };
