@@ -1,14 +1,5 @@
 "use strict";
 
-function getLatLng(initiative) {
-  return [initiative.lat, initiative.lng];
-};
-function getHoverText(initiative) {
-  return initiative.name;
-};
-function prettyPhone(tel) {
-  return tel.replace(/^(\d)(\d{4})\s*(\d{6})/, "$1$2 $3");
-};
 function getAddress(initiative, getTerm) {
   // We want to add the whole address into a single para
   // Not all orgs have an address
