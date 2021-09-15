@@ -45,9 +45,14 @@ function getAddress(initiative, getTerm) {
   return address;
 }
 
+function getOrgStructure(initiative, osVocab) {
+  return `${osVocab.title}: ${osVocab.terms[initiative.regorg]}`;
+}
+
+
 function getSecondaryActivities(initiative, acVocab, osVocab) {
   const title = "Secondary Activities"; // FIXME not yet translated!
-
+  
   if (initiative.activities && initiative.activities.length > 0) {
     const term = initiative.activities.map(id => acVocab.terms[id]).join(", ");
     return `${title}: ${term}`;
@@ -106,7 +111,7 @@ function getPopup(initiative, sse_initiatives) {
     <div class="sea-initiative-details">
       <h2 class="sea-initiative-name">${initiative.name}</h2>
       ${dotcoop_domains || ''}
-      <h4 class="sea-initiative-org-structure">${values["os:"].title}: ${orgStructures[initiative.regorg]}</h4>
+      <h4 class="sea-initiative-org-structure">${getOrgStructure(initiative, values["os:"])}</h4>
       <h4 class="sea-initiative-org-typology">${values["bmt:"].title}: ${membershipsVerbose[initiative.baseMembershipType]}</h4>
       <h4 class="sea-initiative-economic-activity">${values["aci:"].title}: ${activitiesVerbose[initiative.primaryActivity]}</h4>
       <h5 class="sea-initiative-secondary-activity">${getSecondaryActivities(initiative, values["aci:"], values["os:"])}</h5>
