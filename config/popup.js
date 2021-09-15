@@ -40,7 +40,7 @@ var getPopup = function (initiative, sse_initiatives) {
         `<h4 class="sea-initiative-org-typology">${values["bmt:"].title}: ${membershipsVerbose[initiative.baseMembershipType]}</h4>` +
         `<h4 class="sea-initiative-economic-activity">${values["aci:"].title}: ${activitiesVerbose[initiative.primaryActivity]}</h4>` +
         '<h5 class="sea-initiative-secondary-activity">Secondary Activities: {initiative.secondary-activity}</h5>' +
-        "<p>{initiative.desc}</p>" +
+        `<p>${initiative.desc || ''}</p>` +
         "</div>" +
         '<div class="sea-initiative-contact">' +
         `<h3>${labels.contact}</h3>` +
@@ -123,11 +123,6 @@ var getPopup = function (initiative, sse_initiatives) {
       "Typology: {initiative.org-baseMembershipType}", "Others"
     )
   }
-
-
-
-  // All initiatives should have a description (this isn't true with dotcoop)
-  popupHTML = popupHTML.replace("{initiative.desc}", initiative.desc || "");
 
   // We want to add the whole address into a single para
   // Not all orgs have an address
