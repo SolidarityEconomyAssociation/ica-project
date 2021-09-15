@@ -67,6 +67,13 @@ function getEmail(initiative) {
   return "";
 }
 
+function getFacebook(initiative) {
+  // not all have a facebook
+  if (initiative.facebook)
+    return `<a class="fab fa-facebook" href="https://facebook.com/${initiative.facebook}" target="_blank" ></a>`;
+  return "";
+}  
+
 function getPopup(initiative, sse_initiatives) {
   function getTerm(propertyName) {
     const vocabUri = sse_initiatives.getVocabUriForProperty(propertyName);
@@ -105,7 +112,7 @@ function getPopup(initiative, sse_initiatives) {
       
       <div class="sea-initiative-links">
         ${getEmail(initiative)}
-        {initiative.facebook}
+        ${getFacebook(initiative)}
         {initiative.twitter}
       </div>
     </div>
@@ -169,13 +176,6 @@ function getPopup(initiative, sse_initiatives) {
     );
   } else popupHTML = popupHTML.replace("{initiative.twitter}", "");
 
-  // not all have a facebook
-  if (initiative.facebook) {
-    popupHTML = popupHTML.replace(
-      "{initiative.facebook}",
-      '<a class="fab fa-facebook" href="https://facebook.com/' + initiative.facebook + '" target="_blank" ></a>'
-    );
-  } else popupHTML = popupHTML.replace("{initiative.facebook}", "");
 
 
   return popupHTML;
