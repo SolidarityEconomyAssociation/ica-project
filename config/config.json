@@ -10,6 +10,7 @@
         "https:\/\/dev.lod.coop/essglobal/2.1/standard/regions-ica/": "reg",
         "https:\/\/dev.lod.coop/essglobal/2.1/standard/super-regions-ica/": "sreg",
         "https:\/\/dev.lod.coop/essglobal/2.1/standard/organisational-structure/": "os",
+        "https:\/\/dev.lod.coop/essglobal/2.1/standard/qualifiers/": "qf",
         "https:\/\/dev.lod.coop/essglobal/2.1/standard/base-membership-type/": "bmt"
       }
     }
