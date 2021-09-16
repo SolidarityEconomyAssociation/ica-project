@@ -3,12 +3,12 @@
 
 'use strict';
 const { assert } = require('chai');
-const config = require('../www/map-app/app/model/config')({});
+const config = require('sea-map/www/map-app/app/model/config')({});
 
-const registry = require('../www/map-app/app/registries').makeRegistry();
+const registry = require('sea-map/www/map-app/app/registries').makeRegistry();
 registry.def('config', config);
 
-const sse_initiative = require('../www/map-app/app/model/sse_initiative')(registry);
+const sse_initiative = require('sea-map/www/map-app/app/model/sse_initiative')(registry);
 
 // Emulate how vocabs get loaded in the web app
 sse_initiative.setVocab(require('./cannedVocabs.json'));
@@ -19,7 +19,7 @@ sse_initiative.finishInitiativeLoad();
 const initiatives = sse_initiative.getInitiativeUIDMap();
 
 describe('The external popup.js module', function () {
-  const popup = require('../ext/config/popup');
+  const popup = require('../config/popup');
   const expectedContent = require('./expected/popups/ica.json');
 
   const allContent = {};
