@@ -44,15 +44,40 @@ function getDotcoopDomains(initiative) {
 }
 
 function getBMT(initiative, bmtVocab) {
-  return `${bmtVocab.title}: ${bmtVocab.terms[initiative.baseMembershipType]}`;
+  if (initiative.baseMembershipType) {
+    return `${bmtVocab.title}: ${bmtVocab.terms[initiative.baseMembershipType]}`;
+  }
+  
+  return `${bmtVocab.title}: Others`;
 }
 
-function getOrgStructure(initiative, osVocab) {
-  return `${osVocab.title}: ${osVocab.terms[initiative.regorg]}`;
+function getOrgStructure(initiative, osVocab, acVocab, qfVocab) {
+  if (!initiative.qualifier && initiative.orgStructure && initiative.orgStructure.length > 0) {
+    const terms = initiative.orgStructure.map(id => osVocab.terms[id]).join(", ");
+    return `${osVocab.title}: ${terms}`;
+  }
+
+  if (!initiative.qualifier && initiative.regorg) {
+    if (!osVocab.terms[initiative.regorg])
+      console.error(`Unknown ${osVocab.title} vocab term ID: ${initiative.regorg}`);
+    return `${osVocab.title}: ${osVocab.terms[initiative.regorg]}`;
+  }
+  
+  if (initiative.qualifier) {
+    if (!qfVocab.terms[initiative.qualifier])
+      console.error(`Unknown ${qfVocab.title} vocab term ID: ${initiative.qualifier}`);
+    return `${osVocab.title}: ${qfVocab.terms[initiative.qualifier]}`;
+  }
+
+  return '';
 }
 
 function getPrimaryActivity(initiative, acVocab) {
-  return `${acVocab.title}: ${acVocab.terms[initiative.primaryActivity]}`;
+  if (initiative.primaryActivity && initiative.primaryActivity != "") {
+    return `${acVocab.title}: ${acVocab.terms[initiative.primaryActivity]}`;
+  }
+  
+  return '';
 }
 
 function getSecondaryActivities(initiative, acVocab, osVocab) {
@@ -99,18 +124,11 @@ function getPopup(initiative, sse_initiatives) {
   
   const values = sse_initiatives.getLocalisedVocabs();
   const labels = sse_initiatives.getFunctionalLabels();
-  let orgStructures = values["os:"].terms;
-  let activitiesVerbose = values["aci:"].terms;
-  let membershipsVerbose = values["bmt:"].terms;
-  let os_title = values["os:"].title;
-  let bmt_title = values["bmt:"].title;
-  let aci_title = values["aci:"].title;
-  
   let popupHTML = `
     <div class="sea-initiative-details">
       <h2 class="sea-initiative-name">${initiative.name}</h2>
       ${getDotcoopDomains(initiative)}
-      <h4 class="sea-initiative-org-structure">${getOrgStructure(initiative, values["os:"])}</h4>
+      <h4 class="sea-initiative-org-structure">${getOrgStructure(initiative, values["os:"], values["aci:"], values["qf:"])}</h4>
       <h4 class="sea-initiative-org-typology">${getBMT(initiative, values["bmt:"])}</h4>
       <h4 class="sea-initiative-economic-activity">${getPrimaryActivity(initiative, values["aci:"])}</h4>
       <h5 class="sea-initiative-secondary-activity">${getSecondaryActivities(initiative, values["aci:"], values["os:"])}</h5>
@@ -128,57 +146,7 @@ function getPopup(initiative, sse_initiatives) {
       </div>
     </div>
   `;
-
-  // TODO Add org type
-  if (!initiative.qualifier && initiative.orgStructure && initiative.orgStructure.length > 0) {
-    let repl = initiative.orgStructure.map(OS => orgStructures[OS]).join(", ");
-    popupHTML = popupHTML.replace(
-      "{initiative.org-structure}",
-      repl
-    );
-  }
-  else {
-    if (!initiative.qualifier && initiative.regorg) {
-      popupHTML = popupHTML.replace(
-        "{initiative.org-structure}",
-        orgStructures[initiative.regorg]
-      );
-    } else {
-      popupHTML = popupHTML.replace(
-        "Structure Type: {initiative.org-structure}",
-        initiative.qualifier ? "Structure Type: " + activitiesVerbose[initiative.qualifier] : ""
-      );
-    }
-
-  }
-
-  if (initiative.primaryActivity && initiative.primaryActivity != "") {
-
-    popupHTML = popupHTML.replace(
-      "{initiative.economic-activity}",
-      activitiesVerbose[initiative.primaryActivity]
-    );
-  } else {
-    popupHTML = popupHTML.replace(
-      "Economic Activity: {initiative.economic-activity}",
-      ""
-    );
-
-  }
-
-  // memberships 
-  if (initiative.baseMembershipType) {
-    popupHTML = popupHTML.replace(
-      "Typology: {initiative.org-baseMembershipType}",
-      "Typology: " + membershipsVerbose[initiative.baseMembershipType]
-    )
-  }
-  else {
-    popupHTML = popupHTML.replace(
-      "Typology: {initiative.org-baseMembershipType}", "Others"
-    )
-  }
-
+  
   return popupHTML;
 };
 
