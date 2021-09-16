@@ -73,14 +73,4 @@ module.exports = {
       'model/sse_initiative$': 'www/map-app/app/model/sse_initiative.js',
     },
   },
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: 'map-app/map-app.css',
-    }),
-    new CopyPlugin({
-      patterns: [
-        { context: 'www/services', from: '**/*.php', to: 'services' },
-      ],
-    }),
-  ],
 };
