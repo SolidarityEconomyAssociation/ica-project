@@ -153,27 +153,6 @@ module.exports = function(config) {
           'model/sse_initiative$': `${__dirname}/www/map-app/app/model/sse_initiative.js`,
         },
       },
-      plugins: [
-        new MiniCssExtractPlugin({
-          filename: 'map-app/map-app.css',
-        }),
-        new CopyPlugin({
-          patterns: [
-            //        { from: configPath, to: 'configuration',
-            //          globOptions: { ignore: ['**/*~'] },
-            //        },
-            { context: 'www/services', from: '**/*.php', to: 'services' },
-            //        ...copyPaths.map(p => {
-            //          let { dir, base } = path.parse(p);
-            //          if (!fs.statSync(p).isFile())
-            //            base += '/**';
-            //          console.log(`copying: ${dir}/${base}`);
-            //          return { from: base, to: '.', context: dir,
-            //                   globOptions: { ignore: ['**/*~'] } }
-            //        })
-          ],
-        }),
-      ],
     },
   })
 }
