@@ -1,4 +1,7 @@
 "use strict";
+// FIXME check vocabs exist before using them
+// consistent errors if terms missing
+// FIXME prevent malicious content in replacements (like description)
 
 function getAddress(initiative, getTerm) {
   // We want to add the whole address into a single para
